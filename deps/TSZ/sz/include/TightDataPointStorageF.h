@@ -17,9 +17,11 @@ extern "C" {
 #include <stdio.h>
 #include <stdbool.h> 
 #include "pub.h"
+#include "bitstream.h"
 
 typedef struct TightDataPointStorageF
 {
+	int entropyType;
 	size_t dataSeriesLength;
 	int allSameData;
 	double realPrecision; //it's used as the pwrErrBoundRatio when errBoundMode==PW_REL
@@ -34,6 +36,12 @@ typedef struct TightDataPointStorageF
 	float reservedValue;
 	
 	float minLogValue;
+
+	unsigned char* FseCode; // fse code of tp_code
+	size_t FseCode_size;
+
+	unsigned char* transCodeBits; // extra bitstream of transcoding
+	size_t transCodeBits_size;
 
 	unsigned char* typeArray; //its size is dataSeriesLength/4 (or xxx/4+1) 
 	size_t typeArray_size;	
@@ -79,6 +87,8 @@ bool convertTDPStoFlatBytes_float(TightDataPointStorageF *tdps, unsigned char* b
 
 void free_TightDataPointStorageF(TightDataPointStorageF *tdps);
 void free_TightDataPointStorageF2(TightDataPointStorageF *tdps);
+
+void printTDPS(TightDataPointStorageF *tdps);
 
 #ifdef __cplusplus
 }

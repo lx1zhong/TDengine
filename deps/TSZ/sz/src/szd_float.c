@@ -15,6 +15,7 @@
 #include "sz.h"
 #include "utility.h"
 #include "Huffman.h"
+#include "transcode.h"
 
 
 /**
@@ -125,11 +126,28 @@ void decompressDataSeries_float_1D(float* data, size_t dataSeriesLength, float* 
 	convertByteArray2IntArray_fast_2b(tdps->exactDataNum, tdps->leadNumArray, tdps->leadNumArray_size, &leadNum);
 	//data = (float*)malloc(sizeof(float)*dataSeriesLength); // comment by tickduan 
 	
-	// type tree
 	int* types = (int*)malloc(dataSeriesLength*sizeof(int));
-	HuffmanTree* huffmanTree = createHuffmanTree(tdps->stateNum);
-	decode_withTree(huffmanTree, tdps->typeArray, dataSeriesLength, types);
-	SZ_ReleaseHuffman(huffmanTree);	
+	
+	if (tdps->entropyType == 0) {
+		// type tree
+		HuffmanTree* huffmanTree = createHuffmanTree(tdps->stateNum);
+		decode_withTree(huffmanTree, tdps->typeArray, dataSeriesLength, types);
+		SZ_ReleaseHuffman(huffmanTree);	
+	}
+	else if (tdps->entropyType == 1) {
+		short* type__ = (short*)malloc(dataSeriesLength*sizeof(short));
+		int tmpSize = sz_lossless_decompress(ZSTD_COMPRESSOR, tdps->typeArray, tdps->typeArray_size, (unsigned char **)&type__, dataSeriesLength*sizeof(short));
+		if (tmpSize != dataSeriesLength*sizeof(short)){
+			printf("tmpSize(%d) != dataSeriesLength*sizeof(short)(%lu)",tmpSize,dataSeriesLength*sizeof(short));
+		}
+		for (int ii=0; ii<dataSeriesLength; ii++)
+			types[ii] = (int)type__[ii];
+		free(type__);
+	}
+	else {
+		decode_with_fse(types, dataSeriesLength, tdps->intervals, tdps->FseCode, tdps->FseCode_size, 
+					tdps->transCodeBits, tdps->transCodeBits_size);
+	}
 
 	unsigned char preBytes[4];
 	unsigned char curBytes[4];

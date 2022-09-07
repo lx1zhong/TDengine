@@ -19,6 +19,7 @@ extern "C" {
 
 typedef struct TightDataPointStorageD
 {
+	int entropyType;
 	size_t dataSeriesLength;
 	int allSameData;
 	double realPrecision;
@@ -34,6 +35,12 @@ typedef struct TightDataPointStorageD
 	size_t exactDataNum;
 	double reservedValue;
 
+	unsigned char* FseCode; // fse code of tp_code
+	size_t FseCode_size;
+
+	unsigned char* transCodeBits; // extra bitstream of transcoding
+	size_t transCodeBits_size;
+	
 	unsigned char* typeArray; //its size is dataSeriesLength/4 (or xxx/4+1) 
 	size_t typeArray_size;
 	
