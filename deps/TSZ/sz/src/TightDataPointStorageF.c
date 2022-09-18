@@ -177,8 +177,6 @@ int new_TightDataPointStorageF_fromFlatBytes(TightDataPointStorageF **this, unsi
 	return errorBoundMode;
 }
 
-struct timeval startTime;
-struct timeval endTime;  /* Start and end times */
 struct timeval Start; /*only used for recording the cost*/
 double huffCost = 0;
 

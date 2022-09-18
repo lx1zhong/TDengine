@@ -168,8 +168,6 @@ int gettimeofday(struct timeval *tv, struct timezone *tz);
 #include <sys/time.h>
 #endif
 
-struct timeval startTime;
-struct timeval endTime;  /* Start and end times */
 struct timeval costStart; /*only used for recording the cost*/
 double totalCost = 0;
 
