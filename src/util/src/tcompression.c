@@ -85,7 +85,7 @@ int tsCompressInit(){
   if(lossyFloat == false && lossyDouble == false)
         return 0;
   
-  tdszInit(fPrecision, dPrecision, maxRange, curRange, Compressor);
+  tdszInit(fPrecision, dPrecision, maxRange, curRange, entropy_type, Compressor);
   if(lossyFloat)
      uInfo("lossy compression float  is opened. ");
   if(lossyDouble)

@@ -277,8 +277,9 @@ char lossyColumns[32] = "";  // "float|double" means all float and double column
 // below option can take effect when tsLossyColumns not empty
 double   fPrecision = 1E-8;                   // float column precision
 double   dPrecision = 1E-16;                  // double column precision
-uint32_t maxRange = 500;                      // max range
-uint32_t curRange = 100;                      // range
+uint32_t maxRange = 500;                      // max_quant_intervals
+uint32_t curRange = 100;                      // quantization_intervals
+int8_t entropy_type = 2;                       // 0 for huffman, 1 for zstd and 2 for fse
 char     Compressor[32] = "ZSTD_COMPRESSOR";  // ZSTD_COMPRESSOR or GZIP_COMPRESSOR
 #endif
 
@@ -1784,10 +1785,20 @@ static void doInitGlobalConfig(void) {
   cfg.ptrLength = 0;
   cfg.unitType = TAOS_CFG_UTYPE_NONE;
   taosInitConfigOption(cfg);
+
+  cfg.option = "entropyType";
+  cfg.ptr = &entropy_type;
+  cfg.valType = TAOS_CFG_VTYPE_INT8;
+  cfg.cfgType = TSDB_CFG_CTYPE_B_CONFIG;
+  cfg.minValue = 0;
+  cfg.maxValue = 2;
+  cfg.ptrLength = 0;
+  cfg.unitType = TAOS_CFG_UTYPE_NONE;
+  taosInitConfigOption(cfg);
   assert(tsGlobalConfigNum == TSDB_CFG_MAX_NUM);
 #else
   // if TD_TSZ macro define, have 5 count configs, so must add 5
-  assert(tsGlobalConfigNum + 5 == TSDB_CFG_MAX_NUM);
+  assert(tsGlobalConfigNum + 6 == TSDB_CFG_MAX_NUM);
 #endif
 }
 

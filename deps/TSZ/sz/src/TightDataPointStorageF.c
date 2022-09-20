@@ -173,7 +173,7 @@ int new_TightDataPointStorageF_fromFlatBytes(TightDataPointStorageF **this, unsi
 		(*this)->residualMidBits_size = (*this)->residualMidBits_size - (*this)->FseCode_size - (*this)->transCodeBits_size - pde_exe->SZ_SIZE_TYPE - pde_exe->SZ_SIZE_TYPE;
 	}
 	
-	printTDPS(*this);
+	// printTDPS(*this);
 	return errorBoundMode;
 }
 
@@ -373,7 +373,7 @@ void convertTDPStoBytes_float(TightDataPointStorageF* tdps, unsigned char* bytes
 //convert TightDataPointStorageD to bytes...
 bool convertTDPStoFlatBytes_float(TightDataPointStorageF *tdps, unsigned char* bytes, size_t *size)
 {
-	printTDPS(tdps);
+	// printTDPS(tdps);
 	size_t i, k = 0; 
 	unsigned char dsLengthBytes[8];
 	

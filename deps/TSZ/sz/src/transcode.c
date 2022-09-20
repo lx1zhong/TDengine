@@ -132,6 +132,11 @@ void decode_with_fse(int *type, size_t dataSeriesLength, unsigned int intervals,
 
     uint8_t *tp_code = (uint8_t *)malloc(dataSeriesLength);
 
+    if (FseCode_size <= 1) {
+        // type都为0
+        memset((void *)type, 0, sizeof(int) * dataSeriesLength);
+        return;
+    }
     size_t fse_size = FSE_decompress(tp_code, dataSeriesLength, FseCode, FseCode_size);
     if (FSE_isError(fse_size)) {
         printf("decode:FSE_isError!\n");

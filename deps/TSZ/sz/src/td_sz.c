@@ -24,7 +24,7 @@
 //
 // Init  success return 1 else 0
 //
-void tdszInit(double fPrecision, double dPrecision, unsigned int maxIntervals, unsigned int intervals, const char* compressor)
+void tdszInit(double fPrecision, double dPrecision, unsigned int maxIntervals, unsigned int intervals, int entropyType, const char* compressor)
 {
 	// need malloc
 	if(confparams_cpr == NULL)
@@ -40,6 +40,7 @@ void tdszInit(double fPrecision, double dPrecision, unsigned int maxIntervals, u
 	confparams_cpr->absErrBoundDouble = dPrecision;
 	confparams_cpr->max_quant_intervals = maxIntervals;
 	confparams_cpr->quantization_intervals = intervals;
+	confparams_cpr->entropy_type = entropyType;
 	if(strcmp(compressor, "GZIP_COMPRESSOR")==0)
 		confparams_cpr->losslessCompressor = GZIP_COMPRESSOR;
 	else if(strcmp(compressor, "ZSTD_COMPRESSOR")==0)
