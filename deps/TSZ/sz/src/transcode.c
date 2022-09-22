@@ -77,8 +77,8 @@ void encode_with_fse(int *type, size_t dataSeriesLength, unsigned int intervals,
         }
     }
 
-    (*FseCode) = (unsigned char*)malloc(dataSeriesLength);
-    size_t fse_size = FSE_compress((*FseCode), dataSeriesLength, tp_code, dataSeriesLength);
+    (*FseCode) = (unsigned char*)malloc(2 * dataSeriesLength);
+    size_t fse_size = FSE_compress((*FseCode), 2 * dataSeriesLength, tp_code, dataSeriesLength);
     if (FSE_isError(fse_size)) {
         printf("encode:FSE_isError!\n");
         // exit(1);
