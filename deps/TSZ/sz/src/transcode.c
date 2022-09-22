@@ -39,8 +39,8 @@ void encode_with_fse(int *type, size_t dataSeriesLength, unsigned int intervals,
 
     BIT_CStream_t transCodeStream;
     int dstCapacity = dataSeriesLength * sizeof(int);
-    void *tmp = malloc(dstCapacity);
-    BIT_initCStream(&transCodeStream, tmp, dstCapacity);
+    (*transCodeBits) = (unsigned char*)malloc(dstCapacity);
+    BIT_initCStream(&transCodeStream, (void *)(*transCodeBits), dstCapacity);
 
     // transcoding
     // printf("intervals=%u\n", intervals);
@@ -93,9 +93,6 @@ void encode_with_fse(int *type, size_t dataSeriesLength, unsigned int intervals,
         printf("too small!\n");   /* not enough space */
         exit(1);
     }
-    (*transCodeBits) = malloc(streamSize);
-    memcpy((*transCodeBits), tmp, streamSize);
-    free(tmp);
 
     // FILE *f0 = fopen("/home/lxzhong/tmp/type_array.bin","wb");
     // fwrite(type, sizeof(int), dataSeriesLength, f0);
@@ -187,6 +184,8 @@ void decode_with_fse(int *type, size_t dataSeriesLength, unsigned int intervals,
         }
 		// printf(" %d:factor=%d, base=%d, nbits=%d, tp_code=%d, diff=%d\n", i, factor, base, nbits, tp_code[i], diff);
     }
+
+    free(tp_code);
 
     
     // FILE *f0 = fopen("/home/lxzhong/tmp/type_array2.bin","wb");
