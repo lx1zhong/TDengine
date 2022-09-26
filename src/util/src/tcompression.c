@@ -938,16 +938,16 @@ int tsCompressFloatLossyImp(const char * input, const int nelements, char *const
   // compress with sz 
   int compressedSize = tdszCompress(SZ_FLOAT, input, nelements, output + 1);
   unsigned char algo = ALGO_SZ_LOSSY << 1;
-  if (compressedSize == 0 || compressedSize >= nelements*sizeof(float)){
-    // compressed error or large than original
-    output[0] = MODE_NOCOMPRESS | algo;
-    memcpy(output + 1, input, nelements * sizeof(float));
-    compressedSize = 1 + nelements * sizeof(float);
-  } else {
+  // if (compressedSize == 0 || compressedSize >= nelements*sizeof(float)){//zy
+  //   // compressed error or large than original
+  //   output[0] = MODE_NOCOMPRESS | algo;
+  //   memcpy(output + 1, input, nelements * sizeof(float));
+  //   compressedSize = 1 + nelements * sizeof(float);
+  // } else {
     // compressed successfully
     output[0] = MODE_COMPRESS | algo;
     compressedSize += 1;
-  }
+  // }
 
   return compressedSize;
 }

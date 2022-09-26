@@ -404,10 +404,11 @@ bool convertTDPStoFlatBytes_float(TightDataPointStorageF *tdps, unsigned char* b
 		size_t totalByteLength = 1 + 1 + MetaDataByteLength + exe_params->SZ_SIZE_TYPE + tdps->exactMidBytes_size;
 		//*bytes = (unsigned char *)malloc(sizeof(unsigned char)*totalByteLength); // not need malloc comment by tickduan
 		// check output buffer enough
-		if(totalByteLength >=  tdps->dataSeriesLength * sizeof(float) )
+		if(totalByteLength >=  tdps->dataSeriesLength * sizeof(float) ) //zy
 		{
-			*size = 0;
-			return false;
+			printf("convertTDPStoFlatBytes_float(): totalByteLength >=  tdps->dataSeriesLength * sizeof(float)\n");
+			// *size = 0;
+			// return false;
 		}
 		
 		// 1 version 1 byte
@@ -446,10 +447,11 @@ bool convertTDPStoFlatBytes_float(TightDataPointStorageF *tdps, unsigned char* b
 		}
 
 		//*bytes = (unsigned char *)malloc(sizeof(unsigned char)*totalByteLength);  // comment by tickduan
-		if(totalByteLength >= tdps->dataSeriesLength * sizeof(float))
+		if(totalByteLength >= tdps->dataSeriesLength * sizeof(float))//zy
 		{
-			*size = 0;
-			return false;
+			printf("convertTDPStoFlatBytes_float(): totalByteLength >=  tdps->dataSeriesLength * sizeof(float)\n");
+			// *size = 0;
+			// return false;
 		}
 
 		convertTDPStoBytes_float(tdps, bytes, dsLengthBytes, sameByte);
