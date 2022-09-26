@@ -41,6 +41,11 @@ void tdszInit(double fPrecision, double dPrecision, unsigned int maxIntervals, u
 	confparams_cpr->max_quant_intervals = maxIntervals;
 	confparams_cpr->quantization_intervals = intervals;
 	confparams_cpr->entropy_type = entropyType;
+	
+	confparams_cpr->maxRangeRadius = confparams_cpr->max_quant_intervals/2;		
+	exe_params->intvCapacity = confparams_cpr->maxRangeRadius*2;
+	exe_params->intvRadius   = confparams_cpr->maxRangeRadius;
+
 	if(strcmp(compressor, "GZIP_COMPRESSOR")==0)
 		confparams_cpr->losslessCompressor = GZIP_COMPRESSOR;
 	else if(strcmp(compressor, "ZSTD_COMPRESSOR")==0)

@@ -277,7 +277,7 @@ char lossyColumns[32] = "";  // "float|double" means all float and double column
 // below option can take effect when tsLossyColumns not empty
 double   fPrecision = 1E-8;                   // float column precision
 double   dPrecision = 1E-16;                  // double column precision
-uint32_t maxRange = 500;                      // max_quant_intervals
+uint32_t maxRange = 65536;                      // max_quant_intervals
 uint32_t curRange = 100;                      // quantization_intervals
 int8_t entropy_type = 2;                       // 0 for huffman, 1 for zstd and 2 for fse
 char     Compressor[32] = "ZSTD_COMPRESSOR";  // ZSTD_COMPRESSOR or GZIP_COMPRESSOR
