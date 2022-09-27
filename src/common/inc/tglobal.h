@@ -226,6 +226,7 @@ extern double   dPrecision;
 extern uint32_t maxRange;
 extern uint32_t curRange;
 extern int8_t entropy_type;
+extern int8_t huffman_force;
 extern char     Compressor[];
 #endif
 // long query

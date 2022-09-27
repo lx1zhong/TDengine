@@ -280,6 +280,7 @@ double   dPrecision = 1E-16;                  // double column precision
 uint32_t maxRange = 65536;                      // max_quant_intervals
 uint32_t curRange = 100;                      // quantization_intervals
 int8_t entropy_type = 2;                       // 0 for huffman, 1 for zstd and 2 for fse
+int8_t huffman_force = 0;                     // when huffman_force == 1, use huffman encoding even if the result is larger then the original data.
 char     Compressor[32] = "ZSTD_COMPRESSOR";  // ZSTD_COMPRESSOR or GZIP_COMPRESSOR
 #endif
 
@@ -1795,10 +1796,20 @@ static void doInitGlobalConfig(void) {
   cfg.ptrLength = 0;
   cfg.unitType = TAOS_CFG_UTYPE_NONE;
   taosInitConfigOption(cfg);
+
+  cfg.option = "huffman_force";
+  cfg.ptr = &huffman_force;
+  cfg.valType = TAOS_CFG_VTYPE_INT8;
+  cfg.cfgType = TSDB_CFG_CTYPE_B_CONFIG;
+  cfg.minValue = 0;
+  cfg.maxValue = 1;
+  cfg.ptrLength = 0;
+  cfg.unitType = TAOS_CFG_UTYPE_NONE;
+  taosInitConfigOption(cfg);
   assert(tsGlobalConfigNum == TSDB_CFG_MAX_NUM);
 #else
   // if TD_TSZ macro define, have 5 count configs, so must add 5
-  assert(tsGlobalConfigNum + 6 == TSDB_CFG_MAX_NUM);
+  assert(tsGlobalConfigNum + 7 == TSDB_CFG_MAX_NUM);
 #endif
 }
 

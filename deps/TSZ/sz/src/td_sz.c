@@ -24,7 +24,7 @@
 //
 // Init  success return 1 else 0
 //
-void tdszInit(double fPrecision, double dPrecision, unsigned int maxIntervals, unsigned int intervals, int entropyType, const char* compressor)
+void tdszInit(double fPrecision, double dPrecision, unsigned int maxIntervals, unsigned int intervals, int entropyType, int huffman_force, const char* compressor)
 {
 	// need malloc
 	if(confparams_cpr == NULL)
@@ -41,6 +41,7 @@ void tdszInit(double fPrecision, double dPrecision, unsigned int maxIntervals, u
 	confparams_cpr->max_quant_intervals = maxIntervals;
 	confparams_cpr->quantization_intervals = intervals;
 	confparams_cpr->entropy_type = entropyType;
+	confparams_cpr->huffman_force = huffman_force;
 	
 	confparams_cpr->maxRangeRadius = confparams_cpr->max_quant_intervals/2;		
 	exe_params->intvCapacity = confparams_cpr->maxRangeRadius*2;
