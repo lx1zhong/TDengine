@@ -259,8 +259,11 @@ bool SZ_compress_args_float_NoCkRngeNoGzip_1D( unsigned char* newByteData, float
 	// check compressed size large than original
 	if(*outSize > 1 + MetaDataByteLength + exe_params->SZ_SIZE_TYPE + 1 + sizeof(float)*dataLength) //zy
 	{
-		printf("SZ_compress_args_float_NoCkRngeNoGzip_1D(): *outSize > 1 + MetaDataByteLength + exe_params->SZ_SIZE_TYPE + 1 + sizeof(float)*dataLength\n");
-		// return false;
+		if (confparams_cpr->huffman_force) {
+			printf("SZ_compress_args_float_NoCkRngeNoGzip_1D(): *outSize > 1 + MetaDataByteLength + exe_params->SZ_SIZE_TYPE + 1 + sizeof(float)*dataLength\n");
+		} else {
+			return false;
+		}
 	}	
 	free_TightDataPointStorageF(tdps);
 	return true;

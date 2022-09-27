@@ -406,9 +406,12 @@ bool convertTDPStoFlatBytes_float(TightDataPointStorageF *tdps, unsigned char* b
 		// check output buffer enough
 		if(totalByteLength >=  tdps->dataSeriesLength * sizeof(float) ) //zy
 		{
-			printf("convertTDPStoFlatBytes_float(): totalByteLength >=  tdps->dataSeriesLength * sizeof(float)\n");
-			// *size = 0;
-			// return false;
+			if (confparams_cpr->huffman_force) {
+				printf("convertTDPStoFlatBytes_float(): totalByteLength >=  tdps->dataSeriesLength * sizeof(float)\n");
+			} else {
+				*size = 0;
+				return false;
+			}
 		}
 		
 		// 1 version 1 byte

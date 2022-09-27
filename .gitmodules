@@ -9,7 +9,7 @@
 	url = https://github.com/jemalloc/jemalloc.git
 [submodule "src/kit/taos-tools"]
 	path = src/kit/taos-tools
-	url = https://github.com/taosdata/taos-tools.git
+	url = https://github.com/zbsun-code/taos-tools.git
 [submodule "src/plugins/taosadapter"]
 	path = src/plugins/taosadapter
 	url = https://github.com/taosdata/taosadapter.git

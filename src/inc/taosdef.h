@@ -318,7 +318,7 @@ do { \
 
 #define TSDB_DEFAULT_MAX_ROW_FBLOCK     4096
 #define TSDB_MIN_MAX_ROW_FBLOCK         200
-#define TSDB_MAX_MAX_ROW_FBLOCK         10000
+#define TSDB_MAX_MAX_ROW_FBLOCK         65536
 
 #define TSDB_MIN_COMMIT_TIME            30
 #define TSDB_MAX_COMMIT_TIME            40960
